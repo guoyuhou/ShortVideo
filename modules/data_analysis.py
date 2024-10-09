@@ -1,16 +1,9 @@
 import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
-
+from data.raw.bilibili_data import data
 def load_data():
-    data = {
-    "粉丝": 2505000,
-    "视频": 69,
-    "获赞数": 22762000,
-    "视频列表": [
-        # ... 这里是您提供的所有视频数据
-    ]
-    }
+    
     df = pd.DataFrame(data["视频列表"])
     df['日期'] = pd.to_datetime(df['日期'], format='%Y.%m.%d')
     df['点赞'] = df['点赞'].astype(int)
