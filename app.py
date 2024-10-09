@@ -14,8 +14,6 @@ with st.sidebar:
 st.title("ModernY短视频智能平台")
 
 # 公共信息区域
-with st.expander("平台公告", expanded=True):
-    st.info(settings.PLATFORM_ANNOUNCEMENT)
 
 if menu == "主页":
     st.header("欢迎来到ModernY短视频智能平台")
