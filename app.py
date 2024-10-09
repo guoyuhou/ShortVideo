@@ -17,15 +17,7 @@ st.title("ModernY短视频智能平台")
 
 if menu == "主页":
     st.header("欢迎来到ModernY短视频智能平台")
-    st.write("这里是您的个人仪表板")
     
-    col1, col2 = st.columns(2)
-    with col1:
-        st.subheader("最近的数据概览")
-        data_analysis.show_recent_stats()
-    with col2:
-        st.subheader("待办事项")
-        content_creation.show_todo_list()
 
 elif menu == "数据分析":
     data_analysis.render_page()
