@@ -5,31 +5,6 @@ from config import settings
 
 st.set_page_config(page_title="ModernY短视频平台", layout="wide")
 
-# 侧边栏
-with st.sidebar:
-    st.title("ModernY短视频")
-    menu = st.selectbox("选择功能", ["主页", "数据分析", "内容创作", "视频编辑", "发布管理"])
-
-# 主页面
-st.title("ModernY短视频智能平台")
-
-# 公共信息区域
-
-if menu == "主页":
-    st.header("欢迎来到ModernY短视频智能平台")
-    
-
-elif menu == "数据分析":
-    data_analysis.render_page()
-
-elif menu == "内容创作":
-    content_creation.render_page()
-
-elif menu == "视频编辑":
-    video_editing.render_page()
-
-elif menu == "发布管理":
-    publish_management.render_page()
 
 # 页脚
 st.markdown("---")
