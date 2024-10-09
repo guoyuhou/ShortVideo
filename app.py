@@ -1,6 +1,8 @@
 import streamlit as st
+from modules import data_analysis, content_creation, video_editing, publish_management
+from utils import data_processing, file_handling
+from config import settings
 
-# 设置页面标题和布局
 st.set_page_config(page_title="ModernY短视频平台", layout="wide")
 
 # 侧边栏
@@ -11,28 +13,33 @@ with st.sidebar:
 # 主页面
 st.title("ModernY短视频智能平台")
 
-# 根据选择的功能显示不同的内容
+# 公共信息区域
+with st.expander("平台公告", expanded=True):
+    st.info(settings.PLATFORM_ANNOUNCEMENT)
+
 if menu == "主页":
     st.header("欢迎来到ModernY短视频智能平台")
-    # 在这里添加主页内容
-    st.subheader("平台公告")
-    # 在这里添加公共信息或公告
+    st.write("这里是您的个人仪表板")
     
+    col1, col2 = st.columns(2)
+    with col1:
+        st.subheader("最近的数据概览")
+        data_analysis.show_recent_stats()
+    with col2:
+        st.subheader("待办事项")
+        content_creation.show_todo_list()
+
 elif menu == "数据分析":
-    st.header("数据分析")
-    # 在这里添加数据分析相关的功能
-    
+    data_analysis.render_page()
+
 elif menu == "内容创作":
-    st.header("内容创作")
-    # 在这里添加内容创作相关的功能
-    
+    content_creation.render_page()
+
 elif menu == "视频编辑":
-    st.header("视频编辑")
-    # 在这里添加视频编辑相关的功能
-    
+    video_editing.render_page()
+
 elif menu == "发布管理":
-    st.header("发布管理")
-    # 在这里添加发布管理相关的功能
+    publish_management.render_page()
 
 # 页脚
 st.markdown("---")
