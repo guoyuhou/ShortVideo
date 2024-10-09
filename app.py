@@ -5,6 +5,8 @@ from config import settings
 
 st.set_page_config(page_title="ModernY短视频平台", layout="wide")
 
+st.title("ModernY短视频智能平台")   
+
 
 # 页脚
 st.markdown("---")
