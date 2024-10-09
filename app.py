@@ -6,13 +6,19 @@ st.set_page_config(page_title="ModernY短视频平台", layout="wide")
 # 侧边栏
 with st.sidebar:
     st.title("ModernY短视频")
-    menu = st.selectbox("选择功能", ["数据分析", "内容创作", "视频编辑", "发布管理"])
+    menu = st.selectbox("选择功能", ["主页", "数据分析", "内容创作", "视频编辑", "发布管理"])
 
 # 主页面
 st.title("ModernY短视频智能平台")
 
 # 根据选择的功能显示不同的内容
-if menu == "数据分析":
+if menu == "主页":
+    st.header("欢迎来到ModernY短视频智能平台")
+    # 在这里添加主页内容
+    st.subheader("平台公告")
+    # 在这里添加公共信息或公告
+    
+elif menu == "数据分析":
     st.header("数据分析")
     # 在这里添加数据分析相关的功能
     
@@ -31,4 +37,3 @@ elif menu == "发布管理":
 # 页脚
 st.markdown("---")
 st.write("© 2023 ModernY短视频团队")
-
