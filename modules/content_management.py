@@ -1,7 +1,6 @@
 import os
 import markdown
 import git
-from github import Github
 import streamlit as st
 
 repo_path = 'content_scripts'
@@ -42,8 +41,5 @@ def save_content(filename, content):
     origin.push()
 
 def update_github(filename):
-    g = Github(github_token)
-    repo = g.get_repo(github_repo_name)
-    with open(os.path.join(repo_path, filename), 'r', encoding='utf-8') as file:
-        content = file.read()
-    repo.update_file(f'content_scripts/{filename}', f'Update {filename}', content, repo.get_contents(f'content_scripts/{filename}').sha)
+    # 不适用GitHub包。请你修改
+    pass
