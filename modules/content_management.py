@@ -1,12 +1,49 @@
 import os
 import markdown
+import git
+from github import Github
+import streamlit as st
 
-def get_content_list(directory='content_scripts'):
-    """获取内容脚本列表"""
-    return [f for f in os.listdir(directory) if f.endswith('.md')]
+repo_path = 'content_scripts'
+repo_url = st.secrets["github"]["repo_url"]
+github_token = st.secrets["github"]["token"]
+github_repo_name = st.secrets["github"]["repo_name"]
 
-def read_content(filename, directory='content_scripts'):
-    """读取并转换markdown内容"""
-    with open(os.path.join(directory, filename), 'r', encoding='utf-8') as file:
+def init_repo():
+    if not os.path.exists(repo_path):
+        repo = git.Repo.clone_from(repo_url, repo_path)
+    else:
+        repo = git.Repo(repo_path)
+    return repo
+
+def pull_latest_content():
+    repo = init_repo()
+    origin = repo.remotes.origin
+    origin.pull()
+
+def get_content_list():
+    pull_latest_content()
+    return [f for f in os.listdir(repo_path) if f.endswith('.md')]
+
+def read_content(filename):
+    with open(os.path.join(repo_path, filename), 'r', encoding='utf-8') as file:
         content = file.read()
     return markdown.markdown(content)
+
+def save_content(filename, content):
+    repo = init_repo()
+    file_path = os.path.join(repo_path, filename)
+    with open(file_path, 'w', encoding='utf-8') as file:
+        file.write(content)
+    
+    repo.git.add(file_path)
+    repo.git.commit('-m', f'Update {filename}')
+    origin = repo.remotes.origin
+    origin.push()
+
+def update_github(filename):
+    g = Github(github_token)
+    repo = g.get_repo(github_repo_name)
+    with open(os.path.join(repo_path, filename), 'r', encoding='utf-8') as file:
+        content = file.read()
+    repo.update_file(f'content_scripts/{filename}', f'Update {filename}', content, repo.get_contents(f'content_scripts/{filename}').sha)
