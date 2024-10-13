@@ -11,7 +11,6 @@ click==8.1.7
 colorama==0.4.6
 frozenlist==1.4.1
 gitdb==4.0.11
-github==1.2.7
 GitPython==3.1.43
 idna==3.10
 importlib_metadata==8.5.0
