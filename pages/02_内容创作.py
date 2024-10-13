@@ -2,8 +2,6 @@ import streamlit as st
 from modules import content_management
 import os
 
-st.set_page_config(page_title="内容创作 - ModernY短视频平台", layout="wide")
-
 st.title("内容创作")
 
 # 获取内容列表
