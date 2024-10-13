@@ -7,10 +7,10 @@ import logging
 
 # GitHub API 设置
 GITHUB_API_URL = "https://api.github.com"
-GITHUB_TOKEN = st.secrets["github"]["token"]
-GITHUB_REPO = st.secrets["github"]["repo_name"]
+GITHUB_TOKEN = st.secrets["token"]
+GITHUB_REPO = st.secrets["repo_name"]
 repo_path = 'content_scripts'
-repo_url = st.secrets["github"]["repo_url"]
+repo_url = st.secrets["repo_url"]
 
 logging.basicConfig(level=logging.INFO)
 
