@@ -1,5 +1,4 @@
 # 短视频基本设置
-### 账号信息
 #### 账号名称
 Diarina未来式
 
@@ -13,15 +12,7 @@ Diarina未来式
 ![头像7](assets/images/head7.png)
 ![头像8](assets/images/head8.png)
 
-### 问候
-hello world!
-
 ## Midjourney 账号信息
-### 账号
-ixkfw524@gmail.com
-
-### 密码
-Plmp43058
-
-### 辅助邮箱
-jeyWs2327@icloud.com
+- 账号：ixkfw524@gmail.com
+- 密码：Plmp43058
+- 辅助邮箱：jeyWs2327@icloud.com
