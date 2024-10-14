@@ -1,16 +1,15 @@
 # 短视频基本设置
-1. 账号名称： Diarina未来式
-2. 账号头像： 
-<img src="assets/images/head1.png" style="width:100px; margin-right:10px;">
-<img src="assets/images/head2.png" style="width:100px; margin-right:10px;">
-<img src="assets/images/head3.png" style="width:100px; margin-right:10px;">
-<img src="assets/images/head4.png" style="width:100px; margin-right:10px;">
-<br>
-<img src="assets/images/head5.png" style="width:100px; margin-right:10px;">
-<img src="assets/images/head6.png" style="width:100px; margin-right:10px;">
-<img src="assets/images/head7.png" style="width:100px; margin-right:10px;">
-<img src="assets/images/head8.png" style="width:100px; margin-right:10px;">
-hello world!
+#### 账号名称
+Diarina未来式
+
+#### 账号头像
+![头像](https://raw.githubusercontent.com/guoyuhou/ShortVideo/main/assets/images/head1.png)![头像2](https://raw.githubusercontent.com/guoyuhou/ShortVideo/main/assets/images/head2.png)
+![头像3](https://raw.githubusercontent.com/guoyuhou/ShortVideo/main/assets/images/head3.png)
+![头像4](https://raw.githubusercontent.com/guoyuhou/ShortVideo/main/assets/images/head4.png)
+![头像5](https://raw.githubusercontent.com/guoyuhou/ShortVideo/main/assets/images/head5.png)
+![头像6](https://raw.githubusercontent.com/guoyuhou/ShortVideo/main/assets/images/head6.png)
+![头像7](https://raw.githubusercontent.com/guoyuhou/ShortVideo/main/assets/images/head7.png)
+![头像8](https://raw.githubusercontent.com/guoyuhou/ShortVideo/main/assets/images/head8.png)
 
 ## Midjourney 账号信息
 - 账号：ixkfw524@gmail.com
