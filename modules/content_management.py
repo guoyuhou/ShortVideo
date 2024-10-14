@@ -3,14 +3,15 @@ import base64
 import json
 import logging
 import streamlit as st
+import os
 
 # GitHub API 设置
 GITHUB_API_URL = "https://api.github.com"
 GITHUB_TOKEN = st.secrets["github"]["GITHUB_TOKEN"]
 GITHUB_REPO = st.secrets["github"]["GITHUB_REPO"]
+CONTENT_DIR = 'content_scripts'
 
 logging.basicConfig(level=logging.INFO)
-
 
 def get_github_file(repo, path):
     url = f"{GITHUB_API_URL}/repos/{repo}/contents/{path}"
@@ -51,8 +52,34 @@ def update_github_file(repo, path, content, message):
         logging.error(f"更新错误: {e}")
         return False
 
-def edit_markdown(repo, file_path):
-    file_data = get_github_file(repo, file_path)
+def get_content_list():
+    try:
+        contents = get_github_file(GITHUB_REPO, CONTENT_DIR)
+        if contents and isinstance(contents, list):
+            return [item['name'] for item in contents if item['name'].endswith('.md')]
+        else:
+            st.error("无法获取内容列表")
+            return []
+    except Exception as e:
+        st.error(f"获取内容列表时出错: {str(e)}")
+        return []
+
+def read_content(filename):
+    file_path = f"{CONTENT_DIR}/{filename}"
+    file_data = get_github_file(GITHUB_REPO, file_path)
+    if file_data:
+        content = base64.b64decode(file_data['content']).decode("utf-8")
+        return content
+    return None
+
+def save_content(title, content):
+    filename = f"{title}.md"
+    file_path = f"{CONTENT_DIR}/{filename}"
+    message = f"Add new content: {title}"
+    return update_github_file(GITHUB_REPO, file_path, content, message)
+
+def edit_markdown(file_path):
+    file_data = get_github_file(GITHUB_REPO, file_path)
     if file_data:
         content = base64.b64decode(file_data['content']).decode("utf-8")
         return content
