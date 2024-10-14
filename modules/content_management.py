@@ -1,17 +1,12 @@
 import requests
 import base64
-import json
-import logging
 import streamlit as st
-import os
 
 # GitHub API 设置
 GITHUB_API_URL = "https://api.github.com"
 GITHUB_TOKEN = st.secrets["github"]["GITHUB_TOKEN"]
 GITHUB_REPO = st.secrets["github"]["GITHUB_REPO"]
 CONTENT_DIR = 'content_scripts'
-
-logging.basicConfig(level=logging.INFO)
 
 def get_github_file(repo, path):
     url = f"{GITHUB_API_URL}/repos/{repo}/contents/{path}"
@@ -29,27 +24,26 @@ def update_github_file(repo, path, content, message):
     headers = {"Authorization": f"token {GITHUB_TOKEN}"}
 
     file_data = get_github_file(repo, path)
-    if not file_data:
-        st.error("无法获取文件信息，更新操作无法继续。")
-        return False
+    if file_data:
+        sha = file_data['sha']
+    else:
+        sha = None
 
-    sha = file_data['sha']
     data = {
         "message": message,
         "content": base64.b64encode(content.encode()).decode(),
-        "sha": sha
     }
+    if sha:
+        data["sha"] = sha
 
     try:
         with st.spinner("正在更新文件..."):
             response = requests.put(url, headers=headers, json=data)
             response.raise_for_status()
             st.success("文件更新成功")
-            logging.info("文件更新成功")
             return True
     except requests.exceptions.HTTPError as e:
         st.error(f"更新失败: {e.response.status_code} - {e.response.json().get('message', '未知错误')}")
-        logging.error(f"更新错误: {e}")
         return False
 
 def get_content_list():
@@ -72,10 +66,9 @@ def read_content(filename):
         return content
     return None
 
-def save_content(title, content):
-    filename = f"{title}.md"
+def save_content(filename, content):
     file_path = f"{CONTENT_DIR}/{filename}"
-    message = f"Add new content: {title}"
+    message = f"Update content: {filename}"
     return update_github_file(GITHUB_REPO, file_path, content, message)
 
 def edit_markdown(file_path):

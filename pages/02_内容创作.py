@@ -1,6 +1,5 @@
 import streamlit as st
 from modules import content_management
-import os
 
 st.title("内容创作")
 
@@ -8,23 +7,23 @@ st.title("内容创作")
 content_list = content_management.get_content_list()
 
 # 创建选择框
-selected_content = st.selectbox("选择要查看的内容", content_list)
+selected_content = st.selectbox("选择要编辑的内容", ["新建文档"] + content_list)
+
+if selected_content == "新建文档":
+    new_filename = st.text_input("输入新文档的文件名（不包含.md扩展名）")
+    if new_filename:
+        selected_content = f"{new_filename}.md"
 
 if selected_content:
-    # 读取并显示选中的内容
-    content = content_management.read_content(selected_content)
-    st.markdown(content, unsafe_allow_html=True)
+    # 读取选中的内容
+    content = content_management.read_content(selected_content) if selected_content != "新建文档" else ""
+    
+    # 创建一个文本区域用于编辑内容
+    edited_content = st.text_area("编辑内容（支持Markdown格式）", value=content, height=400)
 
-# 添加新内容的功能
-st.subheader("添加新内容")
-new_title = st.text_input("输入新内容的标题")
-new_content = st.text_area("输入新内容（支持Markdown格式）", height=300)
-
-if st.button("保存新内容"):
-    if new_title and new_content:
-        filename = f"{new_title}.md"
-        with open(os.path.join('content_scripts', filename), 'w', encoding='utf-8') as file:
-            file.write(new_content)
-        st.success(f"内容 '{new_title}' 已成功保存！")
-    else:
-        st.warning("请输入标题和内容。")
+    if st.button("保存内容"):
+        if edited_content:
+            if content_management.save_content(selected_content, edited_content):
+                st.success(f"内容 '{selected_content}' 已成功保存！")
+        else:
+            st.warning("请输入内容。")
