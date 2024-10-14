@@ -15,7 +15,7 @@ if selected_content:
     
     # 展示 Markdown 内容
     st.markdown("## 当前文档内容")
-    st.markdown(content)
+    st.markdown(content, unsafe_allow_html=True)    
     
     st.markdown("---")
     st.markdown("## 编辑文档")
