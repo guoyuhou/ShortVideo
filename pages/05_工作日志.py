@@ -7,6 +7,6 @@ def read_markdown_file(markdown_file):
 
 st.title("工作日志")
 
-introduction_path = os.path.join("content_scripts", "introduction.md")
+introduction_path = os.path.join("content_scripts", "log.md")
 introduction_content = read_markdown_file(introduction_path)
 st.markdown(introduction_content, unsafe_allow_html=True)
