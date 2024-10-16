@@ -1,5 +1,5 @@
 import streamlit as st
-import subprocess
+import ffmpeg
 import os
 import tempfile
 
@@ -7,18 +7,17 @@ def convert_m3u8_to_mp4(m3u8_file):
     with tempfile.NamedTemporaryFile(delete=False, suffix='.mp4') as tmp_file:
         output_file = tmp_file.name
     
-    command = [
-        'ffmpeg',
-        '-i', m3u8_file,
-        '-c', 'copy',
-        '-bsf:a', 'aac_adtstoasc',
-        output_file
-    ]
-    
     try:
-        subprocess.run(command, check=True, capture_output=True)
+        (
+            ffmpeg
+            .input(m3u8_file)
+            .output(output_file, vcodec='libx264', acodec='aac')
+            .overwrite_output()
+            .run(capture_stdout=True, capture_stderr=True)
+        )
         return output_file
-    except subprocess.CalledProcessError:
+    except ffmpeg.Error as e:
+        st.error(f"FFmpeg 错误: {e.stderr.decode()}")
         return None
 
 st.title("M3U8 转 MP4 工具箱")
@@ -51,6 +50,6 @@ if uploaded_file is not None:
             os.remove(m3u8_path)
             os.remove(output_file)
         else:
-            st.error("转换失败,请检查您的 M3U8 文件是否有效。")
+            st.error("转换失败，请检查您的 M3U8 文件是否有效。")
 
-st.write("注意:此工具需要在服务器上安装 FFmpeg。")
+st.write("注意: 此工具需要在服务器上安装 FFmpeg。")
